@@ -5,7 +5,7 @@ import distributorsRouter from "./routes/distributors.js";
 import productsRouter from "./routes/products.js";
 import mongoose from "mongoose";
 import { Product } from "./model/product.js";
-const PORT = process.env.PORT || 3000;
+//const PORT = process.env.PORT || 3000;
 dotenv.config();
 
 const app = express();
@@ -15,6 +15,7 @@ app.use(json());
 //app.use("/api/distributors", distributorsRouter);
 //app.use("/api/products", productsRouter);
 app.get("/api/products", (req, res) => {
+  console.log("/api/products!!!");
   res.send(`get products!`);
 });
 
@@ -30,4 +31,4 @@ const newShinyProduct = await Product.create({
 const thatProduct = await Product.find({}, "-_id").exec();
 console.log(thatProduct); */
 
-app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
+app.listen(2000);
