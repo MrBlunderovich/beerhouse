@@ -1,5 +1,5 @@
-const express = require("express");
-const router = express.Router();
+import { Router } from "express";
+const router = Router();
 
 router
   .route("/:id")
@@ -16,4 +16,4 @@ router.param("id", (req, res, next, id) => {
   next();
 });
 
-module.exports = router;
+export default router;
