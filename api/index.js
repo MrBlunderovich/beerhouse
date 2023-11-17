@@ -16,7 +16,7 @@ app.use(json());
 //app.use("/api/products", productsRouter);
 app.get("/api/products", (req, res) => {
   console.log("/api/products!!!");
-  res.send(`get products!`);
+  res.json(`get products!`);
 });
 
 /* mongoose.connect(process.env.MDB_STRING);
