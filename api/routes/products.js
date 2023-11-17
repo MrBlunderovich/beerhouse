@@ -1,14 +1,9 @@
 import { Router } from "express";
 const router = Router();
 
-router
-  .route("/")
-  .get((req, res) => {
-    res.send(`get products!`);
-  })
-  .post((req, res) => {
-    res.send(`post product!`);
-  });
+router.get("/", (req, res) => {
+  res.send(`get products!`);
+});
 
 router
   .route("/:id")
