@@ -12,8 +12,11 @@ const app = express();
 app.use(cors({ credentials: true }));
 app.use(json());
 
-app.use("/api/distributors", distributorsRouter);
-app.use("/api/products", productsRouter);
+//app.use("/api/distributors", distributorsRouter);
+//app.use("/api/products", productsRouter);
+app.get("/api/products", (req, res) => {
+  res.send(`get products!`);
+});
 
 mongoose.connect(process.env.MDB_STRING);
 
