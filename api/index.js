@@ -18,8 +18,7 @@ app.use(express.json());
 //app.use("/api/distributors", distributorsRouter);
 //app.use("/api/products", productsRouter);
 app.get("/api/products", (req, res) => {
-  console.log("/api/products!!!");
-  res.json(`get products!`);
+  res.json("get products!");
 });
 
 /* mongoose.connect(process.env.MDB_STRING);
