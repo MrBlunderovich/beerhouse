@@ -18,7 +18,7 @@ app.get("/api/products", (req, res) => {
   res.send(`get products!`);
 });
 
-mongoose.connect(process.env.MDB_STRING);
+/* mongoose.connect(process.env.MDB_STRING);
 
 const newShinyProduct = await Product.create({
   barcode: 1234567890123,
@@ -28,6 +28,6 @@ const newShinyProduct = await Product.create({
 });
 
 const thatProduct = await Product.find({}, "-_id").exec();
-console.log(thatProduct);
+console.log(thatProduct); */
 
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
