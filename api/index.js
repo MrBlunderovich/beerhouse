@@ -18,15 +18,15 @@ app.use(express.json());
 app.use("/api/distributors", distributorsRouter);
 app.use("/api/products", productsRouter);
 
-/* mongoose.connect(process.env.MDB_STRING);
+mongoose.connect(process.env.MDB_STRING);
 
-const newShinyProduct = await Product.create({
+/* const newShinyProduct = await Product.create({
   barcode: 1234567890123,
   name: "Producto bueno",
   unit: "litro",
   category: "alcohol",
-});
-
+}); */
+/* 
 const thatProduct = await Product.find({}, "-_id").exec();
 console.log(thatProduct); */
 

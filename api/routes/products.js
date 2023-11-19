@@ -1,8 +1,11 @@
 const express = require("express");
+const Product = require("../model/product");
 const router = express.Router();
 
 router.get("/", (req, res) => {
-  res.send(`get products!`);
+  Product.find()
+    .exec()
+    .then((data) => res.json(data));
 });
 
 router
