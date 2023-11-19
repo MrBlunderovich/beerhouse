@@ -44,5 +44,10 @@ const distributorSchema = new mongoose.Schema({
   },
 });
 
+distributorSchema.pre("save", function (next) {
+  this.updated_at = Date.now();
+  next();
+});
+
 const Distributor = mongoose.model("Distributor", distributorSchema);
 module.exports = Distributor;

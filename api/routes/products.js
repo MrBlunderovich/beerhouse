@@ -1,12 +1,26 @@
 const express = require("express");
 const Product = require("../model/product");
+const errorHandler = require("../utils/errorHandler");
+const { CONDITIONS } = require("../common/constants");
 const router = express.Router();
 
-router.get("/", (req, res) => {
-  Product.find()
-    .exec()
-    .then((data) => res.json(data));
-});
+router
+  .route("/")
+  .get((req, res) => {
+    const { state, search, category } = req.query;
+    const query = { is_archived: false };
+    category !== undefined && (query.category = category);
+    query.condition = state || CONDITIONS[0];
+
+    Product.find(query)
+      .then((data) => res.json({ results: data }))
+      .catch((err) => errorHandler(err, req, res));
+  })
+  .post((req, res) => {
+    Product.create(req.body)
+      .then((data) => res.json(data))
+      .catch((err) => errorHandler(err, req, res));
+  });
 
 router
   .route("/:id")

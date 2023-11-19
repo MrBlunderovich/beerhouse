@@ -1,8 +1,9 @@
 const mongoose = require("mongoose");
+const { CATEGORIES, UNITS, CONDITIONS } = require("../common/constants");
 
 const productSchema = new mongoose.Schema({
   barcode: {
-    type: Number,
+    type: String,
     required: true,
   },
   name: {
@@ -12,10 +13,12 @@ const productSchema = new mongoose.Schema({
   unit: {
     type: String,
     required: true,
+    enum: UNITS,
   },
   category: {
     type: String,
     required: true,
+    enum: CATEGORIES,
   },
   quantity: {
     type: Number,
@@ -27,9 +30,10 @@ const productSchema = new mongoose.Schema({
     default: 0,
     min: 0,
   },
-  condition_ok: {
-    type: Boolean,
-    default: true,
+  condition: {
+    type: String,
+    default: "normal",
+    enum: CONDITIONS,
   },
   is_archived: {
     type: Boolean,
@@ -44,6 +48,11 @@ const productSchema = new mongoose.Schema({
     type: Date,
     default: () => Date.now(),
   },
+});
+
+productSchema.pre("save", function (next) {
+  this.updated_at = Date.now();
+  next();
 });
 
 const Product = mongoose.model("Product", productSchema);
