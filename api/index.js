@@ -34,3 +34,4 @@ const thatProduct = await Product.find({}, "-_id").exec();
 console.log(thatProduct); */
 
 app.listen(2000);
+module.exports = app;
