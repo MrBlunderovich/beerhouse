@@ -2,6 +2,7 @@ const express = require("express");
 const Product = require("../model/product");
 const errorHandler = require("../utils/errorHandler");
 const { CONDITIONS } = require("../common/constants");
+const formatProducts = require("../utils/formatProducts");
 const router = express.Router();
 
 router
@@ -13,7 +14,7 @@ router
     query.condition = state || CONDITIONS[0];
 
     Product.find(query)
-      .then((data) => res.json({ results: data }))
+      .then((data) => res.json({ results: formatProducts(data) }))
       .catch((err) => errorHandler(err, req, res));
   })
   .post((req, res) => {
