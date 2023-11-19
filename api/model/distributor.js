@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+const mongoose = require("mongoose");
 
 const distributorSchema = new mongoose.Schema({
   barcode: {
@@ -44,4 +44,5 @@ const distributorSchema = new mongoose.Schema({
   },
 });
 
-export const Distributor = mongoose.model("Distributor", distributorSchema);
+const Distributor = mongoose.model("Distributor", distributorSchema);
+module.exports = Distributor;

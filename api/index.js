@@ -1,25 +1,22 @@
-/* import dotenv from "dotenv";
-import express, { json } from "express";
-import cors from "cors";
-import distributorsRouter from "./routes/distributors.js";
-import productsRouter from "./routes/products.js";
-import mongoose from "mongoose";
-import { Product } from "./model/product.js"; */
-//const PORT = process.env.PORT || 3000;
 const express = require("express");
 const cors = require("cors");
+const dotenv = require("dotenv");
+const Product = require("./model/product.js");
+const Distributor = require("./model/distributor.js");
 
-//dotenv.config();
+const distributorsRouter = require("./routes/distributors.js");
+const productsRouter = require("./routes/products.js");
+const mongoose = require("mongoose");
+
+dotenv.config();
+const PORT = process.env.PORT || 3000;
 
 const app = express();
 app.use(cors({ credentials: true }));
 app.use(express.json());
 
-//app.use("/api/distributors", distributorsRouter);
-//app.use("/api/products", productsRouter);
-app.get("/api/products", (req, res) => {
-  res.json("get products!!");
-});
+app.use("/api/distributors", distributorsRouter);
+app.use("/api/products", productsRouter);
 
 /* mongoose.connect(process.env.MDB_STRING);
 
@@ -34,4 +31,3 @@ const thatProduct = await Product.find({}, "-_id").exec();
 console.log(thatProduct); */
 
 app.listen(2000);
-module.exports = app;
