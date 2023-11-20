@@ -9,7 +9,14 @@ router
   .get((req, res) => {
     const { state, search, category } = req.query;
     const query = { is_archived: false };
-    category !== undefined && category !== "" && (query.category = category);
+    category && (query.category = category);
+    search !== undefined &&
+      search !== "" &&
+      (query.$or = [
+        { name: { $regex: search, $options: "i" } },
+        { identification_number: { $regex: search, $options: "i" } },
+      ]);
+
     query.state = state || CONDITIONS[0];
 
     Product.find(query)
@@ -27,7 +34,10 @@ router.route("/tip").get((req, res) => {
   const query = { is_archived: false };
   search !== undefined &&
     search !== "" &&
-    (query.name = { $regex: search, $options: "i" });
+    (query.$or = [
+      { name: { $regex: search, $options: "i" } },
+      { identification_number: { $regex: search, $options: "i" } },
+    ]);
 
   Product.find(query, "name category state -_id")
     .limit(10)
