@@ -38,6 +38,15 @@ router
       .save()
       .then((data) => res.status(200).json(data))
       .catch((err) => errorHandler(err, req, res));
+  })
+  .delete(async (req, res) => {
+    const { id } = req.params;
+    const doc = await Product.findOne({ id });
+    doc.is_archived = true;
+    doc
+      .save()
+      .then((data) => res.status(200).json(data))
+      .catch((err) => errorHandler(err, req, res));
   });
 
 router.route("/archive").get((req, res) => {
@@ -46,26 +55,15 @@ router.route("/archive").get((req, res) => {
     .catch((err) => errorHandler(err, req, res));
 });
 
-router
-  .route("/archive/:id")
-  .put(async (req, res) => {
-    const { id } = req.params;
-    const doc = await Product.findOne({ id });
-    doc.is_archived = true;
-    doc
-      .save()
-      .then((data) => res.status(200).json(data))
-      .catch((err) => errorHandler(err, req, res));
-  })
-  .delete(async (req, res) => {
-    const { id } = req.params;
-    const doc = await Product.findOne({ id });
-    doc.is_archived = false;
-    doc
-      .save()
-      .then((data) => res.status(200).json(data))
-      .catch((err) => errorHandler(err, req, res));
-  });
+router.route("/archive/:id").delete(async (req, res) => {
+  const { id } = req.params;
+  const doc = await Product.findOne({ id });
+  doc.is_archived = false;
+  doc
+    .save()
+    .then((data) => res.status(200).json(data))
+    .catch((err) => errorHandler(err, req, res));
+});
 
 /* router.param("id", (req, res, next, id) => {
   console.log(id);
