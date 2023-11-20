@@ -14,7 +14,7 @@ router
     query.condition = state || CONDITIONS[0];
 
     Product.find(query)
-      .then((data) => res.json({ results: formatProducts(data) }))
+      .then((data) => res.json({ query, results: formatProducts(data) }))
       .catch((err) => errorHandler(err, req, res));
   })
   .post((req, res) => {
