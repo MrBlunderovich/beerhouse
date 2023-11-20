@@ -22,6 +22,17 @@ router
       .catch((err) => errorHandler(err, req, res));
   });
 
+router.route("/tip").get((req, res) => {
+  const { search } = req.query;
+  const query = { is_archived: false };
+  search !== undefined && search !== "" && (query.name = search);
+
+  Product.find(query, "name category state -_id")
+    .limit(10)
+    .then((data) => res.json({ query, results: data }))
+    .catch((err) => errorHandler(err, req, res));
+});
+
 router.route("/archive/:id").delete(async (req, res) => {
   const { id } = req.params;
   const doc = await Product.findOne({ id });
