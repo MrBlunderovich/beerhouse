@@ -5,6 +5,7 @@ const dotenv = require("dotenv");
 
 const distributorsRouter = require("./routes/distributors.js");
 const productsRouter = require("./routes/products.js");
+const usersRouter = require("./routes/users.js");
 const mongoose = require("mongoose");
 
 dotenv.config();
