@@ -2,8 +2,6 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const dotenv = require("dotenv");
-const Product = require("./model/product.js");
-const Distributor = require("./model/distributor.js");
 
 const distributorsRouter = require("./routes/distributors.js");
 const productsRouter = require("./routes/products.js");
@@ -19,6 +17,7 @@ app.use(cors({ credentials: true }));
 
 app.use("/api/distributors", distributorsRouter);
 app.use("/api/products", productsRouter);
+app.use("/api/users", usersRouter);
 
 mongoose.connect(process.env.MDB_STRING);
 

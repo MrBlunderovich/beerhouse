@@ -19,11 +19,11 @@ router
   })
   .post((req, res) => {
     Product.create(req.body)
-      .then((data) => res.json(data))
+      .then((data) => res.status(201).json(data))
       .catch((err) => errorHandler(err, req, res));
   });
 
-router
+/* router
   .route("/:id")
   .get((req, res) => {
     res.send(`products! ${req.id}`);
@@ -36,6 +36,6 @@ router.param("id", (req, res, next, id) => {
   console.log(id);
   req.id = id;
   next();
-});
+}); */
 
 module.exports = router;
