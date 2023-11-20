@@ -12,6 +12,10 @@ router.route("/").post((req, res) => {
         "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTcwMDUzNzY3NSwiaWF0IjoxNzAwNDUxMjc1LCJqdGkiOiIyM2QyNTYyMDRlYTE0OGUxYmZkYzUxZTM5NzMzYzU0NiIsInVzZXJfaWQiOjJ9.O0s7kSekfp3O8OkddOwhKz4rhQxaW2jcRmQIMrxo0Gw",
       role: "Завсклад",
     });
+  } else {
+    res.status(400).json({
+      detail: "Неверные данные, попробуйте ещё раз!",
+    });
   }
 });
 
