@@ -10,7 +10,7 @@ router
   .get((req, res) => {
     const { state, search, category } = req.query;
     const query = { is_archived: false };
-    category !== undefined && (query.category = category);
+    category !== undefined && category !== "" && (query.category = category);
     query.condition = state || CONDITIONS[0];
 
     Product.find(query)
