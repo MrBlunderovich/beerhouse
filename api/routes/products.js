@@ -2,10 +2,6 @@ const express = require("express");
 const Product = require("../model/product");
 const errorHandler = require("../utils/errorHandler");
 const { CONDITIONS } = require("../common/constants");
-const {
-  formatProducts,
-  formatSingleProduct,
-} = require("../utils/formatProducts");
 const router = express.Router();
 
 router
@@ -30,14 +26,41 @@ router
   .route("/:id")
   .get((req, res) => {
     const { id } = req.params;
-    Product.findOne({ _id: id })
+    Product.findOne({ id })
       .then((data) => res.json(data))
       .catch((err) => errorHandler(err, req, res));
   })
   .put(async (req, res) => {
     const { id } = req.params;
-    const doc = await Product.findOne({ _id: id });
+    const doc = await Product.findOne({ id });
     Object.assign(doc, req.body);
+    doc
+      .save()
+      .then((data) => res.status(200).json(data))
+      .catch((err) => errorHandler(err, req, res));
+  });
+
+router.route("/archive").get((req, res) => {
+  Product.find({ is_archived: true })
+    .then((data) => res.json({ results: data }))
+    .catch((err) => errorHandler(err, req, res));
+});
+
+router
+  .route("/archive/:id")
+  .put(async (req, res) => {
+    const { id } = req.params;
+    const doc = await Product.findOne({ id });
+    doc.is_archived = true;
+    doc
+      .save()
+      .then((data) => res.status(200).json(data))
+      .catch((err) => errorHandler(err, req, res));
+  })
+  .delete(async (req, res) => {
+    const { id } = req.params;
+    const doc = await Product.findOne({ id });
+    doc.is_archived = false;
     doc
       .save()
       .then((data) => res.status(200).json(data))
