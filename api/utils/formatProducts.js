@@ -12,7 +12,7 @@ function formatSingleProduct(product) {
     category: product.category,
     state: product.condition,
     identification_number: product.barcode,
-    created_at: new Date(product.created_at).toLocaleDateString("fr-CA", {
+    /* created_at: new Date(product.created_at).toLocaleDateString("fr-CA", {
       year: "numeric",
       month: "2-digit",
       day: "2-digit",
@@ -21,7 +21,7 @@ function formatSingleProduct(product) {
       year: "numeric",
       month: "2-digit",
       day: "2-digit",
-    }),
+    }), */
   };
 }
 

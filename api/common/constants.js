@@ -1,5 +1,5 @@
 CATEGORIES = ["alcohol", "notAlcohol"];
 CONDITIONS = ["normal", "defect"];
-UNITS = ["шт", "кг", "литр"];
+UNITS = ["item", "kilogram", "liter"];
 
 module.exports = { CATEGORIES, UNITS, CONDITIONS };

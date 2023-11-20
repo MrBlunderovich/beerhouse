@@ -14,10 +14,10 @@ router
     const { state, search, category } = req.query;
     const query = { is_archived: false };
     category !== undefined && category !== "" && (query.category = category);
-    query.condition = state || CONDITIONS[0];
+    query.state = state || CONDITIONS[0];
 
     Product.find(query)
-      .then((data) => res.json({ query, results: formatProducts(data) }))
+      .then((data) => res.json({ query, results: data }))
       .catch((err) => errorHandler(err, req, res));
   })
   .post((req, res) => {
@@ -31,7 +31,7 @@ router
   .get((req, res) => {
     const { id } = req.params;
     Product.findOne({ _id: id })
-      .then((data) => res.json(formatSingleProduct(data)))
+      .then((data) => res.json(data))
       .catch((err) => errorHandler(err, req, res));
   })
   .put(async (req, res) => {

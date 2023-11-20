@@ -2,7 +2,10 @@ const mongoose = require("mongoose");
 const { CATEGORIES, UNITS, CONDITIONS } = require("../common/constants");
 
 const productSchema = new mongoose.Schema({
-  barcode: {
+  id: {
+    type: String,
+  },
+  identification_number: {
     type: String,
     required: true,
   },
@@ -30,7 +33,7 @@ const productSchema = new mongoose.Schema({
     default: 0,
     min: 0,
   },
-  condition: {
+  state: {
     type: String,
     default: "normal",
     enum: CONDITIONS,
@@ -52,6 +55,11 @@ const productSchema = new mongoose.Schema({
 
 productSchema.pre("save", function (next) {
   this.updated_at = Date.now();
+  next();
+});
+
+productSchema.pre("save", function (next) {
+  this.id = this._id;
   next();
 });
 
