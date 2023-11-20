@@ -2,7 +2,10 @@ const express = require("express");
 const Product = require("../model/product");
 const errorHandler = require("../utils/errorHandler");
 const { CONDITIONS } = require("../common/constants");
-const formatProducts = require("../utils/formatProducts");
+const {
+  formatProducts,
+  formatSingleProduct,
+} = require("../utils/formatProducts");
 const router = express.Router();
 
 router
@@ -23,16 +26,14 @@ router
       .catch((err) => errorHandler(err, req, res));
   });
 
-/* router
-  .route("/:id")
-  .get((req, res) => {
-    res.send(`products! ${req.id}`);
-  })
-  .post((req, res) => {
-    //
-  });
+router.route("/:id").get((req, res) => {
+  const { id } = req.params;
+  Product.findOne({ _id: id })
+    .then((data) => res.json(formatSingleProduct(data)))
+    .catch((err) => errorHandler(err, req, res));
+});
 
-router.param("id", (req, res, next, id) => {
+/* router.param("id", (req, res, next, id) => {
   console.log(id);
   req.id = id;
   next();
