@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-router.route("/").post((req, res) => {
+router.route("/login").post((req, res) => {
   const { username, password } = req.body;
   if (username === "dev54321" && password === "dev54321") {
     res.json({
