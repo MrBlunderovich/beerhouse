@@ -26,12 +26,23 @@ router
       .catch((err) => errorHandler(err, req, res));
   });
 
-router.route("/:id").get((req, res) => {
-  const { id } = req.params;
-  Product.findOne({ _id: id })
-    .then((data) => res.json(formatSingleProduct(data)))
-    .catch((err) => errorHandler(err, req, res));
-});
+router
+  .route("/:id")
+  .get((req, res) => {
+    const { id } = req.params;
+    Product.findOne({ _id: id })
+      .then((data) => res.json(formatSingleProduct(data)))
+      .catch((err) => errorHandler(err, req, res));
+  })
+  .put(async (req, res) => {
+    const { id } = req.params;
+    const doc = await Product.findOne({ _id: id });
+    Object.assign(doc, req.body);
+    doc
+      .save()
+      .then((data) => res.status(200).json(data))
+      .catch((err) => errorHandler(err, req, res));
+  });
 
 /* router.param("id", (req, res, next, id) => {
   console.log(id);
