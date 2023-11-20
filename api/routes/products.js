@@ -22,6 +22,23 @@ router
       .catch((err) => errorHandler(err, req, res));
   });
 
+router.route("/archive/:id").delete(async (req, res) => {
+  const { id } = req.params;
+  const doc = await Product.findOne({ id });
+  doc.is_archived = false;
+  doc
+    .save()
+    .then((data) => res.status(200).json(data))
+    .catch((err) => errorHandler(err, req, res));
+});
+
+router.route("/archive").get((req, res) => {
+  console.log("archive");
+  Product.find({ is_archived: true })
+    .then((data) => res.json({ results: data }))
+    .catch((err) => errorHandler(err, req, res));
+});
+
 router
   .route("/:id")
   .get((req, res) => {
@@ -48,22 +65,6 @@ router
       .then((data) => res.status(200).json(data))
       .catch((err) => errorHandler(err, req, res));
   });
-
-router.route("/archive").get((req, res) => {
-  Product.find({ is_archived: true })
-    .then((data) => res.json({ results: data }))
-    .catch((err) => errorHandler(err, req, res));
-});
-
-router.route("/archive/:id").delete(async (req, res) => {
-  const { id } = req.params;
-  const doc = await Product.findOne({ id });
-  doc.is_archived = false;
-  doc
-    .save()
-    .then((data) => res.status(200).json(data))
-    .catch((err) => errorHandler(err, req, res));
-});
 
 /* router.param("id", (req, res, next, id) => {
   console.log(id);
