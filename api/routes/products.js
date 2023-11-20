@@ -25,7 +25,9 @@ router
 router.route("/tip").get((req, res) => {
   const { search } = req.query;
   const query = { is_archived: false };
-  search !== undefined && search !== "" && (query.name = search);
+  search !== undefined &&
+    search !== "" &&
+    (query.name = { $regex: search, $options: "i" });
 
   Product.find(query, "name category state -_id")
     .limit(10)
